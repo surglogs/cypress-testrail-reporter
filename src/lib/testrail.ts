@@ -16,7 +16,7 @@ export class TestRail {
 
   constructor(private options: TestRailOptions) {
     this.base = `${options.host}/index.php?/api/v2`;
-    this.runId;
+    this.runId = options.runId;
   }
 
   /**
@@ -46,11 +46,11 @@ export class TestRail {
       axios({
         method:'get',
         url: url,
-        headers: { 'Content-Type': 'application/json' }, 
+        headers: { 'Content-Type': 'application/json' },
         auth: {
             username: this.options.username,
             password: this.options.password
-        } 
+        }
       })
       .then(response => {
         return response.data.map(item =>item.id)
@@ -119,8 +119,8 @@ export class TestRail {
         data: JSON.stringify({ results }),
       })
       .then(response => response.data)
-      .catch(error => { 
-        console.error(error); 
+      .catch(error => {
+        console.error(error);
       })
     )
   }
@@ -150,7 +150,7 @@ export class TestRail {
     fs.readdir(SCREENSHOTS_FOLDER_PATH, (err, files) => {
       if (err) {
         return console.log('Unable to scan screenshots folder: ' + err);
-      } 
+      }
 
       files.forEach(file => {
         if (file.includes(`C${caseId}`) && /(failed|attempt)/g.test(file)) {

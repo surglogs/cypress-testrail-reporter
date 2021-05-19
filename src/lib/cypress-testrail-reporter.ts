@@ -101,12 +101,14 @@ export class CypressTestRailReporter extends reporters.Spec {
       });
 
       runner.on('retry', test => {
-        this.submitResults(Status.Retest, test, 'Cypress retry logic has been triggered!');
+        // this.submitResults(Status.Retest, test, 'Cypress retry logic has been triggered!');
+        TestRailLogger.log(`Tests triggered retry event..., is it stored in testrail results?`)
+        // NOTE: we dont need retest state, should be same as "pass"
       });
 
       runner.on('end', () => {
         /**
-         * When we reach final number of spec files 
+         * When we reach final number of spec files
          * we should close test run at the end
          */
         var numSpecFiles = this.testRailValidation.countTestSpecFiles();
@@ -139,7 +141,7 @@ export class CypressTestRailReporter extends reporters.Spec {
 
   /**
    * Ensure that after each test results are reported continuously
-   * Additionally to that if test status is failed or retried there is possibility 
+   * Additionally to that if test status is failed or retried there is possibility
    * to upload failed screenshot for easier debugging in TestRail
    * Note: Uploading of screenshot is configurable option
    */
