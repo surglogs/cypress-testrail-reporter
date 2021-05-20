@@ -15,8 +15,11 @@ export class TestRail {
   private retries: number;
 
   constructor(private options: TestRailOptions) {
+
     this.base = `${options.host}/index.php?/api/v2`;
     this.runId = options.runId;
+
+    TestRailLogger.log(`init with options: ${options}`)
   }
 
   /**
