@@ -18,8 +18,9 @@ export class TestRail {
 
     this.base = `${options.host}/index.php?/api/v2`;
     this.runId = options.runId;
-
-    TestRailLogger.log(`init with options: ${options}`)
+    if (this.runId) {
+      TestRailCache.store('runId', this.runId);
+    }
   }
 
   /**
